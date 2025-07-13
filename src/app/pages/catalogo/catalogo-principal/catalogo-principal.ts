@@ -18,7 +18,7 @@ export class CatalogoPrincipal implements OnInit {
   private carritoService = inject(CarritoService);
 
   productos: ProductoModel[] = [];
-  mensajeAgregado: { [id: number]: boolean } = {};
+  mensajeAgregado: { [id_producto: number]: boolean } = {};
 
   ngOnInit(): void {
     this.productoService.getProductos().subscribe({
@@ -35,11 +35,11 @@ export class CatalogoPrincipal implements OnInit {
 
   agregarAlCarrito(producto: ProductoModel): void {
     this.carritoService.agregar(producto, 1);
-    this.mensajeAgregado[producto.id] = true;
+    this.mensajeAgregado[producto.id_producto] = true;
 
     // Oculta la alerta después de 2 segundos
     setTimeout(() => {
-      this.mensajeAgregado[producto.id] = false;
+      this.mensajeAgregado[producto.id_producto] = false;
     }, 2000);
   }
 }

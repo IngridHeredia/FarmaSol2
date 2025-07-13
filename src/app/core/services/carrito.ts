@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CarritoModel } from '../models/carrito-model';
 import { ProductoModel } from '../models/producto-model';
@@ -6,7 +7,33 @@ import { ProductoModel } from '../models/producto-model';
   providedIn: 'root'
 })
 export class CarritoService {
+
+  private readonly apiUrl = 'https://lmmn42egeh.execute-api.us-east-1.amazonaws.com/v1/';
   private listCarrito: CarritoModel[] = [];
+
+   constructor(private http: HttpClient) {} 
+
+  // Ejemplo de métodos para el backend:
+  getCarritoBackend() {
+    return this.http.get<CarritoModel[]>(`${this.apiUrl}carrito`);
+  }
+
+  agregarProductoBackend(producto: ProductoModel, cantidad: number) {
+    return this.http.post(`${this.apiUrl}carrito`, { producto, cantidad });
+  }
+
+  actualizarProductoBackend(id_producto: number, cantidad: number) {
+    return this.http.put(`${this.apiUrl}carrito/${id_producto}`, { cantidad });
+  }
+
+  eliminarProductoBackend(id_producto: number) {
+    return this.http.delete(`${this.apiUrl}carrito/${id_producto}`);
+  }
+
+  vaciarCarritoBackend() {
+    return this.http.delete(`${this.apiUrl}carrito`);
+  }
+
 
   // Devuelve toda la lista del carrito
   getCarrito(){
@@ -17,7 +44,7 @@ export class CarritoService {
   // Acumula o crea un NUEVO item al carrito de compras
   agregar(producto: ProductoModel, cantidad: number = 1){
     this.obtenerSession(); 
-    const index = this.listCarrito.findIndex(item => item.producto.id == producto.id);
+    const index = this.listCarrito.findIndex(item => item.producto.id_producto == producto.id_producto);
 
     if(index == -1){
       // si no existe, se crear nuevo item
@@ -61,12 +88,12 @@ export class CarritoService {
   }
 
      
-  // Guarda el estado actual del carrito en localStorage
+ 
   guardarSession(){
     localStorage.setItem('carrito' , JSON.stringify(this.listCarrito));
   }
 
-  // Recupera los datos del carrito desde localStorage
+
   obtenerSession(){
     this.listCarrito = [];
 

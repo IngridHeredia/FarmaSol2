@@ -9,7 +9,7 @@
     <div class="col" *ngFor="let producto of productos">
       <div class="card card-producto h-100">
         <!-- Imagen del producto: clicable para ir al detalle -->
-        <a [routerLink]="['/producto', producto.id]">
+        <a [routerLink]="['/producto', producto.id_producto]">
           <img [src]="'/img/' + producto.imagen" class="card-img-top" [alt]="producto.nombre">
         </a>
 
@@ -23,7 +23,7 @@
           </button>
 
           <!-- Alerta de agregado -->
-          <div class="alert-agregado align-items-center px-4 py-2 shadow-sm" *ngIf="mensajeAgregado[producto.id]">
+          <div class="alert-agregado align-items-center px-4 py-2 shadow-sm" *ngIf="mensajeAgregado[producto.id_producto]">
             Producto agregado al carrito.
           </div>
         </div>

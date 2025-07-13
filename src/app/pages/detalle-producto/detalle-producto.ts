@@ -38,9 +38,9 @@ export class DetalleProductoComponent implements OnInit {
     this.productoService.getProductos().subscribe({
       next: (productos) => {
         if (Array.isArray(productos)) {
-          this.producto = productos.find(p => p.id === id) ?? null;
+          this.producto = productos.find(p => p.id_producto === id) ?? null;
           this.productosRelacionados = productos
-            .filter(p => p.id !== id && p.tipo === this.producto?.tipo)
+            .filter(p => p.id_producto !== id && p.tipo === this.producto?.tipo)
             .slice(0, 4);
           this.cantidad = 1;
           this.mensajeAgregado = false;

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Contacto {
   contactoForm: FormGroup;
-  mensajeEnviado: boolean = false; // ✅ Para mostrar el alert visual de éxito
+  mensajeEnviado: boolean = false; // Para mostrar el alert visual de éxito
 
   constructor(private fb: FormBuilder) {
     this.contactoForm = this.fb.group({
@@ -27,10 +27,10 @@ export class Contacto {
     if (this.contactoForm.valid) {
       console.log('Datos del formulario:', this.contactoForm.value);
 
-      // ✅ Mostramos el mensaje de éxito
+      // Mostramos el mensaje de éxito
       this.mensajeEnviado = true;
 
-      // ✅ Ocultar luego de 4 segundos
+      // Ocultar luego de 4 segundos
       setTimeout(() => {
         this.mensajeEnviado = false;
       }, 4000);
